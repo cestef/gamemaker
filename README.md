@@ -77,13 +77,13 @@ matcher.getPlayerByID(1) //will return the "John" player object
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [NodeJs](https://nodejs.org/en/)
 
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@cstefFlexin](https://github.com/cstefFlexin) - Idea & Initial work
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/cstefFlexin/gamemaker/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
