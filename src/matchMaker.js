@@ -33,7 +33,6 @@ class MatchMaker {
         this.minMatchSize = options ? typeof options.minMatchSize === "number" ? options.minMatchSize : defaultOptions.minMatchSize : defaultOptions.minMatchSize;
         this.maxMatchSize = options ? typeof options.maxMatchSize === "number" ? options.maxMatchSize : defaultOptions.maxMatchSize : defaultOptions.maxMatchSize;
         this.matchPlayersFunction = options ? typeof options.matchPlayersFunction === "function" ? options.matchPlayersFunction : defaultOptions.matchPlayersFunction : defaultOptions.matchPlayersFunction;
-        this.sortQueueFunction = options ? typeof options.sortQueueFunction === "function" ? options.sortQueueFunction : defaultOptions.sortQueueFunction : defaultOptions.sortQueueFunction;
         this.checkParams()
     }
     checkParams() {
@@ -75,7 +74,6 @@ class MatchMaker {
      * Fetch the queue and match players if possible
      */
     fetchQueue() {
-        console.log(this.getQueue().length)
         this.queue = this.queue.sort(this.sortQueueFunction)
         let groups = this.chunkQueue(this.maxMatchSize)
         for (let i = 0; i < groups.length; i++) {
