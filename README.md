@@ -70,9 +70,10 @@ matcher.init(); //init the matchmaker interval
 matcher.addPlayer({name:"Bob", id:0}); //Add a player named "Bob"
 matcher.addPlayer({name:"John", id:1, someRandomProperty:[123]}) //You can also add other properties to the player object
 matcher.removePlayerByID(0); //will remove "Bob" from the queue
+matcher.addPlayer({name:"Alice", id:2}) //Add a player named "Alice"
 matcher.getPlayerByID(1) //will return the "John" player object
 
-//Output: Match started with players: Bob,John
+//Output: Match started with players: John,Alice
 ```
 
 ## ⛏️ Built Using <a name = "built_using"></a>

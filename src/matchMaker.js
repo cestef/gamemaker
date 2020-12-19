@@ -45,7 +45,7 @@ class MatchMaker {
      * @param {String} id ID of the player to get
      */
     getPlayerByID(id) {
-        let index = this.queue.findIndex(e => this.getKey(e) === id)
+        let index = this.queue.findIndex(e => this.getKey(e.player) === id)
         if (index === -1) return null
         return this.getPlayerByIndex(index)
     }
@@ -104,7 +104,7 @@ class MatchMaker {
      * @param {String} id ID of the player to remove
      */
     removePlayerByID(id) {
-        let index = this.queue.findIndex(e => this.getKey(e) === id)
+        let index = this.queue.findIndex(e => this.getKey(e.player) === id)
         if (index === -1) return null
         return this.removePlayerByIndex(index)
     }
@@ -113,7 +113,7 @@ class MatchMaker {
      * @param {Number} index Index of the player to remove
      */
     removePlayerByIndex(index) {
-        if (!this.queue[i]) return null
+        if (!this.queue[index]) return null
         return this.queue.splice(index, 1)[0]
     }
     chunkQueue(chunkSize) {
