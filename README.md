@@ -3,8 +3,8 @@
 <div>
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/cstefflexin/gamemaker/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/cstefflexin/gamemaker/pulls)
+[![GitHub Issues](https://img.shields.io/github/issues/cstefflexin/gamemaker.svg)](https://github.com/cstefflexin/gamemaker/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/cstefflexin/gamemaker.svg)](https://github.com/cstefflexin/gamemaker/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>

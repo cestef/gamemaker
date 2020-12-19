@@ -11,12 +11,9 @@
     "url": "git+https://github.com/cstefflexin/gamemaker.git"
   },
   "keywords": [
-    "matchmaking",
-    "csgo",
-    "elo",
-    "arpad"
+    "matchmaking"
   ],
-  "author": "cstef",
+  "author": "cstefFlexin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cstefflexin/gamemaker/issues"
