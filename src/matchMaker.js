@@ -33,6 +33,8 @@ class MatchMaker {
         this.minMatchSize = options ? typeof options.minMatchSize === "number" ? options.minMatchSize : defaultOptions.minMatchSize : defaultOptions.minMatchSize;
         this.maxMatchSize = options ? typeof options.maxMatchSize === "number" ? options.maxMatchSize : defaultOptions.maxMatchSize : defaultOptions.maxMatchSize;
         this.matchPlayersFunction = options ? typeof options.matchPlayersFunction === "function" ? options.matchPlayersFunction : defaultOptions.matchPlayersFunction : defaultOptions.matchPlayersFunction;
+        this.getQueue = options ? typeof options.getQueue === "function" ? options.getQueue : () => this.queue : () => this.queue;
+        this.updateQueue = options ? typeof options.updateQueue === "function" ? options.updateQueue : (q) => this.queue = q : (q) => this.queue = q
         this.checkParams()
     }
     checkParams() {
@@ -44,8 +46,8 @@ class MatchMaker {
      * Get a player object by its ID
      * @param {String} id ID of the player to get
      */
-    getPlayerByID(id) {
-        let index = this.queue.findIndex(e => this.getKey(e.player) === id)
+    async getPlayerByID(id) {
+        let index = (await this.getQueue()).findIndex(e => this.getKey(e.player) === id)
         if (index === -1) return null
         return this.getPlayerByIndex(index)
     }
@@ -53,14 +55,8 @@ class MatchMaker {
      * Get a player object by its index in the queue
      * @param {Number} index Index of the player to get
      */
-    getPlayerByIndex(index) {
-        return this.queue[index]
-    }
-    /**
-     * Get the whole queue containing players
-     */
-    getQueue() {
-        return this.queue
+    async getPlayerByIndex(index) {
+        return (await this.getQueue())[index]
     }
     /**
      * Start the matchmaker
@@ -73,9 +69,9 @@ class MatchMaker {
     /**
      * Fetch the queue and match players if possible
      */
-    fetchQueue() {
-        this.queue = this.queue.sort(this.sortQueueFunction)
-        let groups = this.chunkQueue(this.maxMatchSize)
+    async fetchQueue() {
+        this.queue = (await this.getQueue()).sort(this.sortQueueFunction)
+        let groups = await this.chunkQueue(this.maxMatchSize)
         for (let i = 0; i < groups.length; i++) {
             let g = groups[i]
             if (g.length >= this.minMatchSize) {
@@ -87,37 +83,39 @@ class MatchMaker {
         }
         let tempQueue = []
         groups.forEach(e => e.forEach(a => tempQueue.push(a)))
-        this.queue = tempQueue.sort(this.sortQueueFunction)
+        await this.updateQueue(tempQueue.sort(this.sortQueueFunction))
     }
     /**
      * Add a player to the queue
      * @param {Object} player Player to add to the matchmaking queue
      */
-    addPlayer(player) {
-        this.queue.push({
+    async addPlayer(player) {
+        await this.updateQueue(this.queue.concat({
             player: player,
             addedAt: Date.now()
-        })
+        }))
     }
     /**
      * Remove a player from the queue by its ID
      * @param {String} id ID of the player to remove
      */
-    removePlayerByID(id) {
-        let index = this.queue.findIndex(e => this.getKey(e.player) === id)
+    async removePlayerByID(id) {
+        let index = (await this.getQueue()).findIndex(e => this.getKey(e.player) === id)
         if (index === -1) return null
-        return this.removePlayerByIndex(index)
+        return (await this.removePlayerByIndex(index))
     }
     /**
      * Remove a player from the queue by its index
      * @param {Number} index Index of the player to remove
      */
-    removePlayerByIndex(index) {
-        if (!this.queue[index]) return null
-        return this.queue.splice(index, 1)[0]
+    async removePlayerByIndex(index) {
+        let queue = await this.getQueue()
+        if (!queue[index]) return null
+        await this.updateQueue(queue.filter((e, i) => i!=index))
+        return 
     }
-    chunkQueue(chunkSize) {
-        var array = this.queue;
+    async chunkQueue(chunkSize) {
+        var array = await this.getQueue();
         return [].concat.apply([],
             array.map(function (elem, i) {
                 return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];

@@ -1,6 +1,6 @@
 {
   "name": "gamemaker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple matchmaker and lobby package",
   "main": "src/index.js",
   "scripts": {
@@ -19,5 +19,7 @@
     "url": "https://github.com/cstefflexin/gamemaker/issues"
   },
   "homepage": "https://github.com/cstefflexin/gamemaker#readme",
-  "dependencies": {}
+  "dependencies": {
+    "mongoose": "^5.11.8"
+  }
 }
