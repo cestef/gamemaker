@@ -72,12 +72,12 @@ class MatchMaker {
     async fetchQueue() {
         this.queue = (await this.getQueue()).sort(this.sortQueueFunction)
         let groups = await this.chunkQueue(this.maxMatchSize)
-        for (let i = 0; i < groups.length; i++) {
-            let g = groups[i]
+        for (let i = groups.length - 1; i >= 0; i--) {
+            let g = groups[i];
             if (g.length >= this.minMatchSize) {
                 if (this.matchPlayersFunction(g)) {
-                    groups.splice(i, 1)
-                    this.resolver(g)
+                    groups.splice(i, 1);
+                    this.resolver(g);
                 }
             }
         }
